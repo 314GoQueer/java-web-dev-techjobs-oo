@@ -13,15 +13,17 @@ public class JobTest {
     Job test_job2;
     Job new_job;
     Job new_job2;
+    Job job3;
 
     @Before
     public void createJobObject() {
         test_job = new Job();
         test_job2 = new Job();
-        new_job = new Job("Product tester", new Employer("ACME"), new Location("Desert"),
-                new PositionType("Quality control"), new CoreCompetency("Persistence"));
-        new_job2 = new Job("Product tester", new Employer("ACME"), new Location("Desert"),
-                new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        new_job = new Job("Product Tester", new Employer("ACME"), new Location("Desert"),
+                new PositionType("Quality Control"), new CoreCompetency("Persistence"));
+        new_job2 = new Job("Product Tester", new Employer("ACME"), new Location("Desert"),
+                new PositionType("Quality Control"), new CoreCompetency("Persistence"));
+        job3 = new Job("Ice cream taster", new Employer(" "), new Location("Home"), new PositionType("UX"), new CoreCompetency("Taste"));
 
     }
     @Test
@@ -34,10 +36,10 @@ public class JobTest {
 }
     @Test
     public void testJobConstructorSetsAllFields(){
-        assertEquals(new_job.getName(),"Product tester");
+        assertEquals(new_job.getName(),"Product Tester");
         assertEquals(new_job.getEmployer().getValue(),"ACME");
         assertEquals(new_job.getLocation().getValue(),"Desert");
-        assertEquals(new_job.getPositionType().getValue(),"Quality control");
+        assertEquals(new_job.getPositionType().getValue(),"Quality Control");
         assertEquals(new_job.getCoreCompetency().getValue(),"Persistence");
         assertEquals(new_job instanceof Job, true);
         assertTrue(new_job instanceof  Job);
@@ -55,17 +57,33 @@ public class JobTest {
         assertEquals(new_job.toString().startsWith("\n"), true);
         assertEquals(new_job.toString().endsWith("\n"), true);
     }
+
+    @Test
+    public void noBlankValues() {
+   //     Job job3 = new Job("Ice cream taster", new Employer(""), new Location("Home"), new PositionType("UX"), new CoreCompetency("Taste"));
+        assertEquals(job3.toString(),   "\n" +
+                "ID: 5\n" +
+                "Name: Ice cream taster\n" +
+                "Employer: Data not available\n" +
+                "Location: Home\n" +
+                "Position Type: UX\n" +
+                "Core Competency: Taste\n" + "\n" );
+        System.out.println(job3.toString());
+
+        ;
+    }
+
     @Test
     public void testLabelsAndDataOnUniqueLines(){
        assertEquals(new_job.toString(),   "\n" +
-               "id: 3\n" +
-               "name: Product tester\n" +
-               "employer: ACME\n" +
-               "location: Desert\n" +
-               "positionType: Quality control\n" +
-               "coreCompetency: Persistence\n" + "\n" );
+               "ID: 3\n" +
+               "Name: Product Tester\n" +
+               "Employer: ACME\n" +
+               "Location: Desert\n" +
+               "Position Type: Quality Control\n" +
+               "Core Competency: Persistence\n" + "\n" );
 
 
-        System.out.println(new_job.toString());
+//        System.out.println(new_job.toString());
     }
 }
